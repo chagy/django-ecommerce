@@ -21,8 +21,10 @@
           >Category</a
         >
         <div class="dropdown-menu">
-          <a class="dropdown-item" href="#">สินค้าทั้งหมด</a>
-          <a class="dropdown-item" href="#">เสื้อผ้า</a>
+          <a class="dropdown-item" href="{% url 'home' %}">สินค้าทั้งหมด</a>
+          {% for category in links %}
+          <a class="dropdown-item" href="{{ category.get_url }}">{{ category.name }}</a>
+          {% endfor %}
         </div>
       </li>
       <li class="nav-item dropdown">
@@ -63,7 +65,7 @@
       <li class="nav-item">
         <a
           class="nav-link text-light text-uppercase font-weight-bold px-3"
-          href=""
+          href="cartdetail"
         >
           <i class="fas fa-shopping-cart"></i>0
         </a>
