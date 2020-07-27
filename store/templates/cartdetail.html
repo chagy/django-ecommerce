@@ -5,7 +5,11 @@
 {% block content %}
 
 <div class="container">
-    <h2>รายละเอียดตะกร้าสินค้า</h2>
+    {% if not cart_items %}
+        <div class="alert alert-danger my-2" role="alert">
+            <p>ไม่มีสินค้าในตะกร้า</p>
+        </div>
+    {% else %}
     <div class="table-responsive cart_info">
         <table class="table table-condensed">
             <thead>
@@ -19,31 +23,38 @@
                 </tr>
             </thead>
             <tbody>
+                {% for item in cart_items %}
                 <tr>
                     <td class="cart_product">
-                        <a href=""><img src="images/cart/one.png" alt=""></a>
+                        <a href=""><img src="{{ item.product.image.url }}" alt="" height="80px" width="80px"></a>
                     </td>
                     <td class="cart_description">
-                        <h4><a href="">Colorblock Scuba</a></h4>
+                        <h4><a href="{{ item.product.get_url }}">{{ item.name }}</a></h4>
                     </td>
                     <td class="cart_price">
-                        <p>$59</p>
+                        <p>{{item.product.price|intcomma}}</p>
                     </td>
                     <td class="cart_quantity">
-                            <p>1</p>
+                            <p>{{ item.quantity }}</p>
                         </div>
                     </td>
                     <td class="cart_total">
-                        <p class="cart_total_price">$59</p>
+                        <p class="cart_total_price">{{ item.sub_total|intcomma }}</p>
                     </td>
                     <td class="cart_delete">
-                        <a class="cart_quantity_delete" href=""><i class="fa fa-times"></i></a>
+                        <a 
+                            class="cart_quantity_delete" 
+                            href="{% url 'removeCart' item.product.id %}" 
+                            onClick="return confirm('คุณต้องการลบข้อมูลออกจากตะกร้าใช่หรือไม่')"><i class="fa fa-times"></i></a>
                     </td>
                 </tr>
+                {% endfor %}
             </tbody>
         </table>
         <h4 class="text-right">ยอดชำระเงิน {{ total|intcomma }} บาท</h4>
     </div>
+    {% endif %}
+    
 </div>
 
 {% endblock content %}

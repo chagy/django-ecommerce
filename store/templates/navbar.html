@@ -28,11 +28,12 @@
         </div>
       </li>
       <li class="nav-item dropdown">
+        {% if request.user.is_authenticated and request.user.first_name %}
         <a
           class="nav-link text-light text-uppercase font-weight-bold px-3 dropdown-toggle"
           data-toggle="dropdown"
         >
-          Welcome, Demo<i class="fas fa-user circle"></i>
+          Welcome, {{ request.user.first_name }}<i class="fas fa-user circle"></i>
         </a>
         <div class="dropdown-menu">
           <a class="dropdown-item" href="">ประวัติการสั่งซื้อ</a>
@@ -41,15 +42,16 @@
       <li class="nav-item">
         <a
           class="nav-link text-light text-uppercase font-weight-bold px-3"
-          href=""
+          href="{% url 'signOut' %}"
         >
           Sign Out <i class="fas fa-sign-out-alt"></i>
         </a>
       </li>
+      {% else %}
       <li class="nav-item">
         <a
           class="nav-link text-light text-uppercase font-weight-bold px-3"
-          href=""
+          href="{% url 'signUp' %}"
         >
           Sign Up <i class="fas fa-user-plus"></i>
         </a>
@@ -57,21 +59,27 @@
       <li class="nav-item">
         <a
           class="nav-link text-light text-uppercase font-weight-bold px-3"
-          href=""
+          href="{% url 'signIn' %}"
         >
           Sign In <i class="fas fa-sign-in-alt"></i>
         </a>
       </li>
+      {% endif %}
       <li class="nav-item">
         <a
           class="nav-link text-light text-uppercase font-weight-bold px-3"
-          href="cartdetail"
+          href="{% url 'cartdetail' %}"
         >
-          <i class="fas fa-shopping-cart"></i>0
+          <i class="fas fa-shopping-cart"></i> 
+          {% if item_count > 0 %}
+            {{ item_count }}
+          {% else %}
+            0
+          {% endif %}
         </a>
       </li>
     </ul>
-    <form class="form-inline ml-3" action="" , method="GET">
+    <form class="form-inline ml-3" action="{% url 'search' %}" , method="GET">
       <div class="input-group">
         <input
           type="text"

@@ -17,7 +17,7 @@
                         </h4>
                         <h5>$ {{ product.price|intcomma }}</h5>
                         <p class="card-text">
-                            {{ product.description }}
+                            {{ product.description|slice:"70" }}
                         </p>
                     </div>
                     <div class="card-footer">
@@ -32,6 +32,19 @@
             </div>
             {% endfor %}
         </div>
+        <nav aria-label="pagination">
+            {% if products.paginator.num_pages > 1 %}
+            <ul class="pagination">
+                {% for page_number in products.paginator.page_range %}
+                <li class="page-item 
+                    {% if products.number == page_number %}
+                        active
+                    {% endif %}
+                "><a href="?page={{ page_number }}" class="page-link">{{ page_number }}</a></li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+        </nav>
     </div>
 
 {% endblock content %}
