@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'store.apps.StoreConfig',
     'django.contrib.humanize',
     'crispy_forms',
+    'stripe',
 ]
 
 MIDDLEWARE = [
@@ -135,3 +136,6 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR,'static','media')
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+PUBLIC_KEY = 'pk_test_51H9Y5fK4vC2b1QpuA6jdIG2vAdQpfAZU84cFuO3kVNhGH6iO7JOpHprYFKM7Wdv7ynIozlz3lcw5w8YsS0Wlu9Dv00VoOqDdVh'
+SECRET_KEY = 'sk_test_51H9Y5fK4vC2b1Qpu9MQYRjfqVSpmwevoptyYrZcbiR7aGFePnmgAzE93MMgviPtJah0VnZPTab3eNaEhrN0qbRrJ009daWJpyz'
